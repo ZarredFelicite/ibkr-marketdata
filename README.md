@@ -5,6 +5,8 @@
 - add option for period customisation
 - Make asychronous
 - Update cache of conids to file
-
+- Rainmeter widget?
+- 
 https://github.com/Voyz/ibeam/wiki/Installation-and-startup
+
 https://www.interactivebrokers.com/api/
