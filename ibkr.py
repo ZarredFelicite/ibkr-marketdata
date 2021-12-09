@@ -23,9 +23,7 @@ def get_conid(tickers, exchange):
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("-t", "--ticker", help="Ticker code", required=True)
-    parser.add_argument(
-        "-e", "--exchange", help="Exchange code", required=True
-    )
+    parser.add_argument("-e", "--exchange", help="Exchange code", required=True)
     args = vars(parser.parse_args())
     conids = {
         "adt": "316336245",
@@ -56,9 +54,6 @@ if __name__ == "__main__":
 
 """
 
-TO DO:
-- add option for period customisation
-- Make asychronous
-- Update cache of conids to file
+
 
 """
