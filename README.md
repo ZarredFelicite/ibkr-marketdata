@@ -5,3 +5,5 @@
 - add option for period customisation
 - Make asychronous
 - Update cache of conids to file
+
+https://github.com/Voyz/ibeam/wiki/Installation-and-startup
