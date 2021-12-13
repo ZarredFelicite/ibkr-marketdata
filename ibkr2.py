@@ -19,35 +19,37 @@ def get_conid(tickers, exchange):
         conids.append(response[0]["contracts"][0]["conid"])
     return conids
 
-
+def parse_cache(filename):
+    with open(filename, 'r') as f:
+        conids = json.load(f)
+    return conids
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("-t", "--ticker", help="Ticker code", required=True)
     parser.add_argument("-e", "--exchange", help="Exchange code", required=True)
     args = vars(parser.parse_args())
-    conids = {
-        "adt": "316336245",
-        "mlx": "44202491",
-        "ctm": "74237654",
-        "afm": "176898301",
-        "fil": "244105117",
-    }
+    conids = parse_cache(filename='conid_cache.txt')
     if args["ticker"] not in list(conids.keys()):
         args["ticker"] = args["ticker"].upper()
         args["exchange"] = args["exchange"].upper()
         print("Pulling conid from API")
         conid = str(get_conid(tickers=[args["ticker"]], exchange=args["exchange"])[0])
+        #writing conid to cache
+        with open('conid_cache.txt', 'w') as f:
+            conids[args["ticker"].lower()] = conid
+            json.dump(conids, f, ensure_ascii=False)
     else:
         print("Pulling conid from cache")
         conid = conids[args["ticker"]]
-    url = "https://localhost:5000/v1/api/iserver/marketdata/history?period=1min&conid="
-    url = url + conid
+    fields = '83'
+    url = "https://localhost:5000/v1/api/iserver/marketdata/snapshot?conids="
+    url = url + conid + '&fields=' + fields
     while True:
         response = requests.get(url, verify=False)
-        print(response)
-        print(
-            "Price of "
-            + args["ticker"]
-            + " is: "
-            + str(response.json()["data"][0]["c"])
-        )
+        print(response.json()[0]['83'])
+        # print(
+        #     "Price of "
+        #     + args["ticker"]
+        #     + " is: "
+        #     + str(response.json()["data"][0]["c"])
+        # )
