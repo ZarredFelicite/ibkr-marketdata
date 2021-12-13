@@ -25,8 +25,8 @@ def parse_cache(filename):
     return conids
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("-t", "--ticker", help="Ticker code", required=True)
-    parser.add_argument("-e", "--exchange", help="Exchange code", required=True)
+    parser.add_argument("-t", "--ticker", help="Ticker code", default='pls')
+    parser.add_argument("-e", "--exchange", help="Exchange code", default='asx')
     args = vars(parser.parse_args())
     conids = parse_cache(filename='conid_cache.txt')
     if args["ticker"] not in list(conids.keys()):
